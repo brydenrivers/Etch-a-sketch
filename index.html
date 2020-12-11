@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Sketch</title>
+</head>
+<body>
+    <header>
+        <h1>Etch A Sketch</h1>
+        <p>Let's make some pixel art!</p>
+        <p>Hover over the Grid to start drawing!</p>
+    </header>
+    <div>
+        <button onclick="clearCanvas()" type="button">
+            New Grid
+        </button>
+    </div>
+    <div class="container" id="container">
+
+    </div>
+    <script>
+        var side = 16;
+        var canvasSize = (side/side**2)*100;
+        game()
+
+
+        function clearCanvas(){
+            //**cleanrs the canvas on button click. it takes the array createdon the boxes function declaration amd removes the 'painted' class. Then it asks for a grid size and starts with a clean canvas of that size**//
+            // const boxes = document.querySelectorAll('.squares');//
+            // boxes.forEach(box =>  box.classList.remove('painted'));//
+            //**code bellow removes all existing boxes so that the game can start again**//
+            while (container.firstChild){
+                container.firstChild.remove()
+            }
+            side = prompt('Please enter the number of pixels per side!')
+            canvasSize = (side/side**2)*100;
+            game()
+        }
+        function game(){
+            const   container = document.querySelector('#container');
+
+            for (var i = 0; i < (side**2) ; i++){
+                const divs = document.createElement('div');
+                divs.classList.add('squares');
+                divs.style.cssText = `height: ${(canvasSize)}%; width: ${(canvasSize)}%`;
+                container.appendChild(divs);
+            }
+            function addPaint(e){
+                if (this.classList.contains('painted75')){
+                    this.classList.add('painted100')
+                }
+                else if (this.classList.contains('painted50')){
+
+                    this.classList.add('painted75')
+                }
+                else if (this.classList.contains('painted')){
+                    this.classList.add('painted50')
+                }
+                else{
+                    this.classList.add('painted')
+
+                }
+
+
+            }
+            const boxes = document.querySelectorAll('.squares');
+            boxes.forEach(box =>  box.addEventListener('mouseover', addPaint));
+            console.log(side+  ' '+ canvasSize)
+
+        }
+
+
+
+
+
+    </script>
+</body>
+</html>
